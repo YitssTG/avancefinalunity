@@ -11,10 +11,7 @@ public class puertaB : PuertaBase
     {
         requiereLlave = true;
     }
-    public override void Interactuar()
-    {
-        CargarEscena();
-    }
+  
     protected override void AbrirPuerta()
     {
         base.AbrirPuerta();

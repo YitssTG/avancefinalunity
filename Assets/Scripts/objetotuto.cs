@@ -1,33 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class Objetostutorial : MonoBehaviour
+using UnityEngine.UI;
+public class Objetostutorial : Interactive
 {
     public GameObject popupTip;
     public AudioSource sfx;
     public bool popupabierto;
-    void Start()
+    public Button mybutton;
+    private bool active;
+    private void Start()
     {
-        popupTip.SetActive(false);
+        mybutton.onClick.AddListener(Onclick);
     }
-    void Update()
+    private void Onclick()
     {
-
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        sfx.Play();
-        if (collision.gameObject.tag == "player" && !popupabierto)
-        {
-            Time.timeScale = 0;
-            popupTip.SetActive(true);
-            popupabierto = true;
-        }
-    }
-    public void ClosePopUpTuto()
-    {
-        popupTip.SetActive(false);
         Time.timeScale = 1;
+        popupTip.SetActive(false);
+        Destroy(this);
+    }
+    protected void Update()
+    {
+        if (interactivePlayer && active == false)
+        {
+            popupTip.SetActive(true);
+            Time.timeScale = 0;
+            sfx.Play();
+            active = true;
+        }
     }
 }

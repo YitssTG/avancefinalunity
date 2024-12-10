@@ -17,12 +17,10 @@ public class TeleportCameraControl : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "player")
+        if (collision.gameObject.tag == "Player")
         {
             _cameraControl.minXPosition = minPosx;
             _cameraControl.maxXPosition = maxPosx;
-           
-           
         }
     }
 }

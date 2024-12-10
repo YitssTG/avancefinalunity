@@ -11,7 +11,6 @@ public class EnemySounds : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-       
     }
     void Update()
     {

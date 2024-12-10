@@ -4,23 +4,30 @@ using UnityEngine;
 
 public class ojosaparece : MonoBehaviour
 {
-
-    // Start is called before the first frame update
-    void Start()
+    private float time;
+    bool detecterPlayer;
+    private void Start()
     {
-        
+        time = 8;
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        if(detecterPlayer==true)
+        {
+            time-=Time.deltaTime;
+            if(time <0)
+            {
+                Destroy(gameObject);
+            }
+        }
         
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "player")
+        if (collision.gameObject.tag == "Player")
         {
             this .gameObject.SetActive(true);
+            detecterPlayer = true;
         }
     }
 }

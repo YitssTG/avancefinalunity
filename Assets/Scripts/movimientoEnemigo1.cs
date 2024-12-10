@@ -26,10 +26,6 @@ public class movimientoEnemigo1 : MonoBehaviour
         {
             direction = 1;
         }
-        if (_commponentRigidbody2d.position.x > maxlimit)
-        {
-            
-        }
     }
     private void FixedUpdate()
     {

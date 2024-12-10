@@ -8,10 +8,7 @@ public class PuertaBase : Interactive
     public Transform teleportDestination;
     public string sceneToLoad;
 
-    public override void Interactuar()
-    {
-        
-    }
+   
     protected virtual void AbrirPuerta()
     {
 

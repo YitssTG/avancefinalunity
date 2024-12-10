@@ -42,7 +42,7 @@ public class ojoscode : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.tag == "player" && !activado)
+        if (collision.gameObject.tag == "Player" && !activado)
         {
             activado = true;
             sfxojos.Play();   

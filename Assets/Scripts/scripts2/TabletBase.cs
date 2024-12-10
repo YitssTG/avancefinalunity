@@ -16,14 +16,14 @@ public abstract class TabletBase : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    // Método para abrir la tablet cuando el jugador interactúa
-    protected virtual void OnTriggerStay2D(Collider2D collision)
+    protected void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            tablet.SetActive(true);
-            Time.timeScale = 0;
-        }
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    tablet.SetActive(true);
+        //    Time.timeScale = 0;
+        //}
     }
+    // Método para abrir la tablet cuando el jugador interactúa
 }
 

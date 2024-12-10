@@ -16,6 +16,7 @@ TagManager:
   - visionenemy
   - tablet
   - tablet2
+  - Iterador
   layers:
   - Default
   - TransparentFX

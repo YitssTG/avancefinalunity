@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class enemyController : MonoBehaviour
 {
@@ -19,6 +15,9 @@ public class enemyController : MonoBehaviour
     public bool playervision;
     public float campoVision;
     public float velocidadAlerta;
+
+
+    public bool enContactoConPared;
     void Awake()
     {
         _commponentRigidbody2d = GetComponent<Rigidbody2D>();
@@ -29,22 +28,23 @@ public class enemyController : MonoBehaviour
         if (direction == 1)
         {
             vision.transform.position = new Vector2(gameObject.transform.position.x + 5, vision.transform.position.y);
-            _spriteRenderer.flipX = false;
+            transform.eulerAngles = new Vector3(0, 0, 0);
         }
         if (direction == -1)
         {
-            vision.transform.position = new Vector2(gameObject.transform.position.x - 5, vision.transform.position.y);
-            _spriteRenderer.flipX = true;
+           vision.transform.position = new Vector2(gameObject.transform.position.x - 5, vision.transform.position.y);
+            transform.eulerAngles = new Vector3(0, 180, 0);
         }
         if (_commponentRigidbody2d.position.x < minlimit)
         {
             direction = 1;
         }
-        if (_commponentRigidbody2d.position.x > maxlimit) 
+        else if (_commponentRigidbody2d.position.x > maxlimit) 
         {
             direction = -1; 
         }
     }
+
     private void FixedUpdate()
     {
         if (playervision)
@@ -56,41 +56,65 @@ public class enemyController : MonoBehaviour
             _commponentRigidbody2d.velocity = new Vector2(direction * speedx, _commponentRigidbody2d.velocity.y);
         }
     }
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == "player")
+    //    {
+    //        // Cuando el jugador entra en la visión, duplicar la velocidad
+    //        speedx *= 2;
+    //        playervision = true;
+    //        Debug.Log("Jugador detectado por vision. Velocidad duplicada.");
+    //    }
+    //    if (collision.gameObject.tag == "ObjetoConRuido")
+    //    {
+    //        AlertaPorRuido();
+    //    }
+    //    if (collision.gameObject.tag == "pared")
+    //    {
+    //        Debug.Log("Entro");
+    //        print(collision.gameObject.name);
+    //        boxCollider2D.enabled = false;
+    //    }
+    //}
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "player")
+        if (collision.gameObject.CompareTag("pared"))
         {
-            // Cuando el jugador entra en la visión, duplicar la velocidad
-            speedx *= 2;
-            playervision = true;
-            Debug.Log("Jugador detectado por vision. Velocidad duplicada.");
-        }
-        if (collision.gameObject.tag == "ObjetoConRuido")
-        {
-            AlertaPorRuido();
+            enContactoConPared = true;
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "player")
+        if (collision.gameObject.CompareTag("pared"))
         {
-            playervision = false;
-            speedx /= 2;
-            Debug.Log("Jugador salió de la visión. Velocidad restaurada.");
+            enContactoConPared = false;
         }
     }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "pared")
+        if (collision.gameObject.tag == "player")
         {
-            canKill = false;
-        }
-        else if (collision.gameObject.tag == "player")
-        {
-            print("jugador detectado");
             playervision = true;
         }
     }
+
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == "pared")
+    //    {
+    //        boxCollider2D.enabled = true; 
+    //    }
+    //    if (collision.gameObject.tag == "player")
+    //    {
+    //        playervision = false;
+    //        speedx /= 2;
+    //    }
+    //}
+
     public void AlertaPorRuido()
     {
         _commponentRigidbody2d.velocity = new Vector2(direction * velocidadAlerta, _commponentRigidbody2d.velocity.y);
