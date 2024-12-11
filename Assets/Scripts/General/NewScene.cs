@@ -6,7 +6,7 @@ public class NewScene : MonoBehaviour
     private const string Key = "Continue";
     public void CambiarScena(string sceneName)
     {
-        if (sceneName == "Game"||sceneName=="Game 1")
+        if (sceneName == "Game" || sceneName == "Game 1")
         {
             PlayerPrefs.SetString(Key, sceneName);
             PlayerPrefs.Save();
